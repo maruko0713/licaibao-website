@@ -6,6 +6,72 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 	<title>理财宝</title>
 	<link rel="stylesheet" href="css/main.css">
+	<script src="js/move.js"></script>
+	<script>
+
+	  var browser=navigator.appName;
+	var b_version=navigator.appVersion;
+	console.log(navigator.appName);
+	console.log(navigator.appVersion);
+		window.onload = function() {
+		    var timer = null;
+			var oButtons = document.getElementById("buttons");
+			var aSpan = oButtons.getElementsByTagName("span");
+			var oAd = document.getElementById("ad");
+			var iNow = 1;
+			var start;
+			var end;
+			go();
+			function go () {
+			   timer0 = setInterval(function(){
+				if(iNow>aSpan.length-1) {
+					iNow=0;
+				}
+				for(var i=0;i<aSpan.length;i++) {
+					aSpan[i].className = "";
+				}
+				aSpan[iNow].className = "active";
+			    // console.log(-iNow*document.body.clientWidth);
+				Move(oAd,{"left":-(iNow*document.body.clientWidth)},iNow);
+				iNow++;
+			},3000);
+			}
+			for(var i=0;i<aSpan.length;i++) {
+				aSpan[i].index = i;
+				aSpan[i].onclick = function() {
+					iNow = this.index;
+					Move(oAd,{"left":-(iNow*document.body.clientWidth)},iNow);
+				}
+			}
+			function Move(obj,target,index){
+				starMove(obj,target,0);
+				for(var i=0;i<aSpan.length;i++) {
+					aSpan[i].className = "";
+				}
+				aSpan[index].className = "active";
+			}
+			oAd.onmouseover = oAd.ontouchstart =function(event) {
+				event = event || window.event;
+				start = event.pageX;
+				clearInterval(timer0);
+				return false;
+			}
+			oAd.onmouseout = oAd.ontouchend = function() {
+				go();
+			}
+			oAd.ontouchend = function(event) {
+				event = event || window.event;
+				end = event.pageX;
+				if(end>start&&iNow>0) {
+					iNow--;
+				}
+				if(end<start&&iNow<aSpan.length) {
+					iNow++;
+				}
+				go();
+			}
+		}
+	</script>
 </head>
 <body>
 <!--[if lte IE8]> 
@@ -56,25 +122,27 @@
 		</div>
 	</section>
 	<section class="ad">
-		<div class="ad-item">
+		<div class="ad-item" id="ad">
 			<picture>
 				<source media="(min-width:50em)" srcset="img/ad001-l.png"></source>
 				<source media="(max-width:30em)" srcset="img/ad001.png"></source>
 				<img srcset="img/ad001-m.png" alt="年度报告">
-
 			</picture>
-		</div>
-		<div class="ad-item">
 			<picture>
 				<source srcset="img/ad002-l.png" media="(min-width:50em)"></source>
-				<source srcset="img/ad002-m.png" media="(max-width:50em)"></source>
+				<source srcset="img/ad002.png" media="(max-width:30em)"></source>
+				<img srcset="img/ad002-m.png" alt="年度报告">
+			</picture>
+			<picture>
+				<source srcset="img/ad003-l.png" media="(min-device-width:50em)"></source>
+				<source srcset="img/ad003.png" media="(max-device-width:30em)"></source>
+				<img srcset="img/ad003-m.png" alt="年度报告">
 			</picture>
 		</div>
-		<div class="ad-item">
-			<picture>
-				<source srcset="img/ad003-l.png" media="(min-width:50em)"></source>
-				<source srcset="img/ad003-m.png" media="(max-width:50em)"></source>
-			</picture>
+		<div class="buttons" id="buttons">
+			<span class="active"></span>
+			<span></span>
+			<span></span>
 		</div>
 	</section>
 	<section class="feature">

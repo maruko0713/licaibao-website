@@ -4,8 +4,6 @@ html {
 	font-size:62.5%;
 	color:#222;
 }
-
-
 /*工具样式*/
 .clearfix:after {
 	content:"";
@@ -223,12 +221,50 @@ header .main ul li a.active {
    }
 }
 /*广告部分*/
+.ad {
+	position:relative;
+	overflow:hidden;
+}
+.ad-item {
+	position:relative;
+	left:0;
+}
+.ad picture {
+	width:100%;
+}
+.ad picture+picture {
+	margin-left:-3px;
+}
+.ad .buttons {
+	position:absolute;
+	bottom:10px;
+	left:50%;
+    margin-left:-50px;
+}
+.ad .buttons span {
+	width:10px;
+	margin-right:8px;
+	display:inline-block;
+	height:10px;
+	border-radius:5px;
+	border:1px solid #fff;
+}
+.ad .buttons span.active {
+	background-color:#aaa;
+}
 .ad img{
 	width:100%;
 	margin:0 auto;
 	font-size:1.5rem;
 }
-
+.ad {
+	white-space:nowrap; 
+}
+@media only screen and (max-width:30.625em) {
+	.ad .buttons {
+        display:none;
+	}
+}
 /*特性部分*/
 .container .feature {
 	width:90%;
