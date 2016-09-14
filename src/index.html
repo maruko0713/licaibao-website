@@ -7,12 +7,11 @@
 	<title>理财宝</title>
 	<link rel="stylesheet" href="css/main.css">
 	<script src="js/move.js"></script>
+	<script src="js/main.js"></script>
 	<script src="js/lib/picturefill.js"></script>
 	<script>
 	    var browser=navigator.appName;
 	    var b_version=navigator.appVersion;
-	    console.log(navigator.appName);
-	    console.log(navigator.appVersion);
 		window.onload = function() {
 		    var timer = null;
 			var oButtons = document.getElementById("buttons");
@@ -29,14 +28,11 @@
 				if(iNow>aSpan.length-1) {
 					iNow=0;
 				}
-				for(var i=0;i<aSpan.length;i++) {
-					aSpan[i].className = "";
-				}
-				aSpan[iNow].className = "active";
+				changeActive(aSpan,iNow);
 			    // console.log(-iNow*document.body.clientWidth);
 				Move(oAd,{"left":-(iNow*document.body.clientWidth)},iNow);
 				iNow++;
-			},3000);
+			    },3000);
 			}
 			for(var i=0;i<aSpan.length;i++) {
 				aSpan[i].index = i;
@@ -51,52 +47,37 @@
 					aSpan[i].className = "";
 				}
 				aSpan[index].className = "active";
-				console.log(iNow);
 			}
-			// oAd.onmouseover  =function(event) {
-			// 	var system ={
-			// 	win : false,
-			// 	mac : false,
-			// 	xll : false
-			// 	};
-			// 	var p = navigator.platform;
-   //        		system.win = p.indexOf("Win") == 0;
-			// 	system.mac = p.indexOf("Mac") == 0;
-			// 	system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
-			// 	if(system.win||system.mac||system.xll){
-			// 	event = event || window.event;
-			// 	clearInterval(timer0);
-			// 	return false;
-			//     }
-			// }
+			oAd.onmouseover  =function(event) {
+				clearInterval(timer0);
+				return false;
+			}
 		    oAd.addEventListener("touchstart",function(event) {
 				event = event || window.event;
 				start = event.changedTouches[0].pageX;
 				clearInterval(timer0);
 				return false;
 			});
-			// oAd.onmouseout = function() {
-			// 	go();
-			// }
-			// oAd.ontouchend = function(event) {
-			// 	event = event || window.event;
-			// 	end = event.pageX;
-			// 	coonsole.log(end,start);
-			// 	if(end>start&&iNow>0) {
-			// 		iNow--;
-			// 	}
-			// 	if(end<start&&iNow<aSpan.length) {
-			// 		iNow++;
-			// 	}
-			// 	go();
-			// }
+			oAd.onmouseout = function() {
+				go();
+			}
+			oAd.ontouchend = function(event) {
+				event = event || window.event;
+				end = event.pageX;
+				coonsole.log(end,start);
+				if(end>start&&iNow>0) {
+					iNow--;
+				}
+				if(end<start&&iNow<aSpan.length) {
+					iNow++;
+				}
+				go();
+			}
 			oAd.addEventListener("touchmove",function(event) {
 				ev = event || window.event;
 				ev=ev.changedTouches[0];
 		        iDis=ev.pageX-start;
-		        console.log(this.offsetLeft);
 		        left = this.offsetLeft + iDis;
-		        console.log(left);
 		        if(left<=0&&left>=-(aSpan.length-1)*document.body.clientWidth){
 		            this.style.left= left + "px";
 		        }
@@ -115,7 +96,6 @@
 		        {
 		        	iNow=aSpan.length-1;
 		        }
-		        console.log(iNow);
 		        Move(oAd,{"left":-(iNow*document.body.clientWidth)},iNow);
 		       go();
 		       return false;
