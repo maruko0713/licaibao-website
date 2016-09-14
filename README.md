@@ -20,7 +20,10 @@ event.changedTouches[0].pageX;
 ```
 ##BUG修复
 发现在safari下picture标签是不被识别的，于是响应式图片就狗带了，为此引入了一个插件:    
-> [picturefill.js](http://scottjehl.github.io/picturefill/)
+> [picturefill.js](http://scottjehl.github.io/picturefill/)    
 
-引入后，完美兼容safari,噢耶！
+引入后，完美兼容safari,噢耶！        
+
+移动端事件ontouchstart,ontouchmove和ontouchend这三个事件不能以DOM0级的方式去处理事件处理程序 ，必须用addEventListener这种方式，亲测前者无效。至于IE行不行，作为一个只有128g mac的🐶，等哪天室友的电脑空出来容我去测试一下。。。。。
+
 
