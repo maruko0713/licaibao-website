@@ -20,6 +20,6 @@ event.changedTouches[0].pageX;
 ```
 ##BUG修复
 发现在safari下picture标签是不被识别的，于是响应式图片就狗带了，为此引入了一个插件:    
-> (picturefill.js)[http://scottjehl.github.io/picturefill/]
+> [picturefill.js](http://scottjehl.github.io/picturefill/)
 引入后，完美兼容safari,噢耶！
 
