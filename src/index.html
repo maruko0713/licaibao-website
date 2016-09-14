@@ -10,8 +10,6 @@
 	<script src="js/main.js"></script>
 	<script src="js/lib/picturefill.js"></script>
 	<script>
-	    var browser=navigator.appName;
-	    var b_version=navigator.appVersion;
 		window.onload = function() {
 		    var timer = null;
 			var oButtons = document.getElementById("buttons");
@@ -99,7 +97,7 @@
 		        Move(oAd,{"left":-(iNow*document.body.clientWidth)},iNow);
 		       go();
 		       return false;
-		        });
+		    });
 		}
 	</script>
 </head>
