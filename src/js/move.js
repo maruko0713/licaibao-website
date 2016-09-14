@@ -85,7 +85,8 @@ function doMoveBuffer(obj,target,fnEnd)
 			{
 				iSpeed=Math.floor(iSpeed);
 			}
-			css(obj,sAttr,iNow+=iSpeed);
+			value = parseInt(iSpeed + css(obj,sAttr));
+			css(obj,sAttr,value);
 			iEnd=0;
 		}
 	}

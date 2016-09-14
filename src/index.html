@@ -7,6 +7,7 @@
 	<title>理财宝</title>
 	<link rel="stylesheet" href="css/main.css">
 	<script src="js/move.js"></script>
+	<script src="js/lib/picturefill.js"></script>
 	<script>
 	    var browser=navigator.appName;
 	    var b_version=navigator.appVersion;
@@ -20,8 +21,10 @@
 			var iNow = 1;
 			var start;
 			var end;
+			var left;
+			var iDis;
 			go();
-			function go () {
+			function go() {
 			   timer0 = setInterval(function(){
 				if(iNow>aSpan.length-1) {
 					iNow=0;
@@ -48,27 +51,75 @@
 					aSpan[i].className = "";
 				}
 				aSpan[index].className = "active";
+				console.log(iNow);
 			}
-			oAd.onmouseover = oAd.ontouchstart =function(event) {
+			// oAd.onmouseover  =function(event) {
+			// 	var system ={
+			// 	win : false,
+			// 	mac : false,
+			// 	xll : false
+			// 	};
+			// 	var p = navigator.platform;
+   //        		system.win = p.indexOf("Win") == 0;
+			// 	system.mac = p.indexOf("Mac") == 0;
+			// 	system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+			// 	if(system.win||system.mac||system.xll){
+			// 	event = event || window.event;
+			// 	clearInterval(timer0);
+			// 	return false;
+			//     }
+			// }
+		    oAd.addEventListener("touchstart",function(event) {
 				event = event || window.event;
-				start = event.pageX;
+				start = event.changedTouches[0].pageX;
 				clearInterval(timer0);
 				return false;
-			}
-			oAd.onmouseout = oAd.ontouchend = function() {
-				go();
-			}
-			oAd.ontouchend = function(event) {
+			});
+			// oAd.onmouseout = function() {
+			// 	go();
+			// }
+			// oAd.ontouchend = function(event) {
+			// 	event = event || window.event;
+			// 	end = event.pageX;
+			// 	coonsole.log(end,start);
+			// 	if(end>start&&iNow>0) {
+			// 		iNow--;
+			// 	}
+			// 	if(end<start&&iNow<aSpan.length) {
+			// 		iNow++;
+			// 	}
+			// 	go();
+			// }
+			oAd.addEventListener("touchmove",function(event) {
+				ev = event || window.event;
+				ev=ev.changedTouches[0];
+		        iDis=ev.pageX-start;
+		        console.log(this.offsetLeft);
+		        left = this.offsetLeft + iDis;
+		        console.log(left);
+		        if(left<=0&&left>=-(aSpan.length-1)*document.body.clientWidth){
+		            this.style.left= left + "px";
+		        }
+		        return false
+			});
+			oAd.addEventListener("touchend",function(event) {
 				event = event || window.event;
-				end = event.pageX;
-				if(end>start&&iNow>0) {
-					iNow--;
-				}
-				if(end<start&&iNow<aSpan.length) {
-					iNow++;
-				}
-				go();
-			}
+				end = event.changedTouches[0].pageX;
+				iNow=left/document.body.clientWidth;
+		        iNow=-Math.round(iNow);
+		        if(iNow<0)
+		        {
+		        	iNow=0;
+		        }
+		        if(iNow>aSpan.length-1)
+		        {
+		        	iNow=aSpan.length-1;
+		        }
+		        console.log(iNow);
+		        Move(oAd,{"left":-(iNow*document.body.clientWidth)},iNow);
+		       go();
+		       return false;
+		        });
 		}
 	</script>
 </head>
@@ -122,8 +173,8 @@
 	<div class="ad">
 		<div class="ad-item" id="ad">
 			<picture>
-				<source media="(min-width:50em)" srcset="img/ad001-l.png"></source>
-				<source media="(max-width:30em)" srcset="img/ad001.png"></source>
+				<source media="(min-width:800px)" srcset="img/ad001-l.png"></source>
+				<source media="(max-width:480px)" srcset="img/ad001.png"></source>
 				<img srcset="img/ad001-m.png" alt="年度报告" />
 			</picture>
 			<picture>
@@ -132,8 +183,8 @@
 				<img srcset="img/ad002-m.png" alt="新年福利" />
 			</picture>
 			<picture>
-				<source srcset="img/ad003-l.png" media="(min-device-width:50em)"></source>
-				<source srcset="img/ad003.png" media="(max-device-width:30em)"></source>
+				<source srcset="img/ad003-l.png" media="(min-width:50em)"></source>
+				<source srcset="img/ad003.png" media="(max-width:30em)"></source>
 				<img srcset="img/ad003-m.png" alt="新手红包" />
 			</picture>
 		</div>
@@ -183,7 +234,7 @@
 			</p>
 		</div>
 		<div class="product-info">
-		    <div class="product-eitem clearfix">
+		    <div class="product-item clearfix">
 		    	<h3><span>3</span>个月</h3>
 			    <div class="info">
 		    		<p>约定年化收益:<span class="number">3.60%<i>起</i></span></p>
@@ -289,8 +340,7 @@
 				<dd><a href="#">机构中心</a></dd>
 				<dd><a href="#">合作联系</a></dd>
 			</dl>
-	    </div>
-		
+	    </div>	
 	</section>
 </div>
 <footer>

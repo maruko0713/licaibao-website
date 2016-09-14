@@ -296,7 +296,7 @@ header .main ul li a.active {
 	color:#999;
 }
 
-@media only screen and (min-width:30.626rem) and (max-width:50rem) {
+@media only screen and (min-width:30.626em) and (max-width:50em) {
     .feature h3, .feature p{
     	display:block;
     	width:100%;
@@ -307,7 +307,7 @@ header .main ul li a.active {
     	font-size:1.2rem;
     }
 }
-@media only screen and (max-width:30.625rem) {
+@media only screen and (max-width:30.625em) {
 	.container .feature {
 		width:96%;
 		margin:1rem auto;
@@ -350,7 +350,7 @@ header .main ul li a.active {
 /*.notice span.info {
 	margin-right:1rem;
 }*/
-@media only screen and (max-width:30.625rem) {
+@media only screen and (max-width:30.625em) {
 	.notice .date {
 		display:none;
 	}
