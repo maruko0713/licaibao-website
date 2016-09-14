@@ -12,7 +12,7 @@ function isPC() {
 }
 
 function changeActive(array,index) {
-	for(var i=0;i<aSpan.length;i++) {
+	for(var i=0;i<array.length;i++) {
 		array[i].className = "";
 	}
 	array[index].className = "active";
