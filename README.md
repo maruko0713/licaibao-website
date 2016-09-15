@@ -14,7 +14,7 @@ section的例子包括书的章节回目、多tab对话框的每个tab页、论�
 - 一个很重要的点:media query中条件里面的相对单位em是相对于浏览器默认字体大小的
 
 ### js笔记
-这次兼容了移动端，一个点就是onclick不管用了，需要转向touch事件的处理，touch事件中event对象存储的事件对应的坐标是pageX而非clienX,这样写:    
+这次兼容了移动端，一个点就是onclick不管用了，需要转向touch事件的处理，touch事件中event对象存储的事件对应的坐标应该从一个叫做changedTouches[0]的对象中取,这样写:    
 ```js
 event.changedTouches[0].pageX;
 ```
